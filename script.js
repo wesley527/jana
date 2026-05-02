@@ -23,7 +23,7 @@ const dotsWrap = document.getElementById('carousel-dots');
 const prevBtn = document.querySelector('.carousel-btn.prev');
 const nextBtn = document.querySelector('.carousel-btn.next');
 
-const images = Array.from({ length: 10 }, (_, i) => `assets/aluno-${String(i + 1).padStart(2, '0')}.png`);
+const images = Array.from({ length: 10 }, (_, i) => `assets/aluno-${String(i + 1).padStart(2, '0')}.jpg`);
 images.forEach((src, idx) => {
   const slide = document.createElement('article');
   slide.className = 'slide';

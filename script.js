@@ -8,6 +8,13 @@ menuToggle?.addEventListener('click', () => {
   menuToggle.setAttribute('aria-expanded', String(isOpen));
 });
 
+nav?.querySelectorAll('a').forEach((link) => {
+  link.addEventListener('click', () => {
+    nav.classList.remove('open');
+    menuToggle?.setAttribute('aria-expanded', 'false');
+  });
+});
+
 // Revelação ao rolar
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
@@ -48,9 +55,13 @@ function setVisible() {
 
 function updateCarousel() {
   const slideWidth = track.querySelector('.slide')?.getBoundingClientRect().width || 0;
-  const gap = 16;
+  const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
   track.style.transform = `translateX(-${index * (slideWidth + gap)}px)`;
-  [...dotsWrap.children].forEach((d, i) => d.classList.toggle('active', i === index));
+  [...dotsWrap.children].forEach((dot, i) => {
+    const isActive = i === index;
+    dot.classList.toggle('active', isActive);
+    dot.setAttribute('aria-current', isActive ? 'true' : 'false');
+  });
 }
 
 function renderDots() {
@@ -58,6 +69,9 @@ function renderDots() {
   for (let i = 0; i <= maxIndex; i++) {
     const dot = document.createElement('button');
     dot.className = `dot ${i === index ? 'active' : ''}`;
+    dot.type = 'button';
+    dot.setAttribute('aria-label', `Ir para foto ${i + 1}`);
+    dot.setAttribute('aria-current', i === index ? 'true' : 'false');
     dot.addEventListener('click', () => { index = i; updateCarousel(); resetAutoplay(); });
     dotsWrap.appendChild(dot);
   }

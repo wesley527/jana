@@ -1,4 +1,4 @@
-const WHATSAPP_NUMBER = '5581998583250';
+const WHATSAPP_NUMBER = '5581973381639';
 
 // Menu mobile
 const menuToggle = document.querySelector('.menu-toggle');
